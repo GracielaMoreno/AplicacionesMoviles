@@ -6,6 +6,11 @@ public class Zapatos implements Serializable {
     public String nombre;
     public String precio;
 
+    public Zapatos(String nombre, String precio) {
+        this.nombre = nombre;
+        this.precio = precio;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -24,9 +29,11 @@ public class Zapatos implements Serializable {
 
     @Override
     public String toString() {
-        return "Zapatos{" +
+        return
                 "nombre='" + nombre + '\'' +
-                ", precio=" + precio +
-                '}';
+                ", precio='" + precio + '\'';
     }
+
+
+
 }

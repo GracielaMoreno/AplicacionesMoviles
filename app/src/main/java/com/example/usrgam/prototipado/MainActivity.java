@@ -28,4 +28,12 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("idpersona",new Persona("Graciela","12345"));
         startActivity(intent);
     }
+
+    public void AbrirListaInvitado (View view){
+        Intent intent =new Intent(getApplicationContext(),Main4Activity.class);
+        intent.putExtra("idpersona",new Persona("Graciela","12345"));
+        startActivity(intent);
+    }
+
+
 }
