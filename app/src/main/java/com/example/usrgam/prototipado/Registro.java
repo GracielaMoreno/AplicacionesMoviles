@@ -1,5 +1,7 @@
 package com.example.usrgam.prototipado;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,26 +9,60 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+
+import java.util.ArrayList;
+
 import modelo1.Zapatos;
 
-public class Main2Activity extends AppCompatActivity {
-    ListView listaz;
-    Zapatos []datos;
-    ArrayAdapter<Zapatos>adapter;
+public class Registro extends AppCompatActivity {
 
+    private ArrayList<Zapatos> Productos;
+    Zapatos [] datos;
+    private ArrayAdapter<Zapatos> adaptador1;
+    private ListView lv1;
+    private EditText et1;
+    private EditText et2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.listaapatos);
-        listaz =(ListView)findViewById(R.id.listView);
-        cargarDatos();
-        adapter=new ArrayAdapter<Zapatos>(getApplicationContext(),R.layout.support_simple_spinner_dropdown_item, datos);
-        listaz.setAdapter(adapter);
-        listaz.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        setContentView(R.layout.activity_registro);
+        adaptador1=new ArrayAdapter<Zapatos>(this,android.R.layout.simple_list_item_1,datos);
+        lv1=(ListView)findViewById(R.id.listView);
+        lv1.setAdapter(adaptador1);
+
+        et1=(EditText)findViewById(R.id.editText);
+        et2=(EditText)findViewById(R.id.ediTprecio);
+        lv1.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                final int posicion=i;
+
+                AlertDialog.Builder dialogo1 = new AlertDialog.Builder(Registro.this);
+                dialogo1.setTitle("Importante");
+                dialogo1.setMessage("¿ Elimina este Producto ?");
+                dialogo1.setCancelable(false);
+                dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogo1, int id) {
+                        Productos.remove(posicion);
+                        adaptador1.notifyDataSetChanged();
+                    }
+                });
+                dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogo1, int id) {
+                    }
+                });
+                dialogo1.show();
+
+                return false;
+            }
+        });
+
+        lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
 
             public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
@@ -39,6 +75,12 @@ public class Main2Activity extends AppCompatActivity {
 
             }
         });
+
+    }
+    public void agregar(View v) {
+        Productos.add(new Zapatos(et1.getText().toString(),et2.getText().toString()));
+        adaptador1.notifyDataSetChanged();
+        et1.setText("");
     }
 
     public void abrirmenu(View view, final int i) {
@@ -72,8 +114,4 @@ public class Main2Activity extends AppCompatActivity {
         popupMenu.inflate(R.menu.menu);
         popupMenu.show();
     }
-    private void cargarDatos(){
-        datos = new Zapatos[] {new Zapatos("z1","23.4"),new Zapatos("z2","23.4"),new Zapatos("z3","23.4"),new Zapatos("z4","23.4"),new Zapatos("z5","23.4"),new Zapatos("z1","23.4")};
-    }
-
 }

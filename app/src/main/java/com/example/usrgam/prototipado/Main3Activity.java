@@ -15,7 +15,7 @@ public class Main3Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main3);
+        setContentView(R.layout.comprar);
         Zapatos zapatos =(Zapatos)getIntent().getExtras().getSerializable("idzapato");
         ((TextView)findViewById(R.id.editTextNombre)).setText(zapatos.getNombre());
         ((TextView)findViewById(R.id.editTextprecio)).setText(zapatos.getPrecio());

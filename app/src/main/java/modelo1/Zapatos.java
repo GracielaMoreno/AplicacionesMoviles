@@ -34,6 +34,8 @@ public class Zapatos implements Serializable {
                 ", precio='" + precio + '\'';
     }
 
-
+    public String Imprimir(){
+        return "nombre='"+ nombre +'\'';
+    }
 
 }
